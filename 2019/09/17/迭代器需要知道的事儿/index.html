@@ -79,21 +79,23 @@
 
 
 
-<meta name="description" content="&amp;#x6458;&amp;#x8981; Java&amp;#x96C6;&amp;#x5408;&amp;#x6846;&amp;#x67B6;&amp;#x603B;&amp;#x89C8; Collection &amp;#x200B;    List &amp;#x200B;        ArrayList&amp;#x3001;Vector&amp;#x3001;LinkedList &amp;#x200B;    Set &amp;#x200B;        LinkedHashSe">
+<meta name="description" content="&amp;#x6458;&amp;#x8981;  &amp;#x200B;         &amp;#x524D;&amp;#x8A00;&amp;#x96C6;&amp;#x5408;&amp;#x662F;Java&amp;#x8BED;&amp;#x8A00;&amp;#x91CC;&amp;#x7684;&amp;#x91CD;&amp;#x8981;&amp;#x90E8;&amp;#x5206;&amp;#xFF0C;&amp;#x9762;&amp;#x8BD5;&amp;#x65F6;&amp;#x5FC5;&amp;#x5B9A;&amp;#x4F1A;&amp;">
 <meta name="keywords" content="集合,迭代器">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java集合接口需要知道的事儿">
 <meta property="og:url" content="http://yoursite.com/2019/09/17/迭代器需要知道的事儿/index.html">
 <meta property="og:site_name" content="mikasaco">
-<meta property="og:description" content="&amp;#x6458;&amp;#x8981; Java&amp;#x96C6;&amp;#x5408;&amp;#x6846;&amp;#x67B6;&amp;#x603B;&amp;#x89C8; Collection &amp;#x200B;    List &amp;#x200B;        ArrayList&amp;#x3001;Vector&amp;#x3001;LinkedList &amp;#x200B;    Set &amp;#x200B;        LinkedHashSe">
+<meta property="og:description" content="&amp;#x6458;&amp;#x8981;  &amp;#x200B;         &amp;#x524D;&amp;#x8A00;&amp;#x96C6;&amp;#x5408;&amp;#x662F;Java&amp;#x8BED;&amp;#x8A00;&amp;#x91CC;&amp;#x7684;&amp;#x91CD;&amp;#x8981;&amp;#x90E8;&amp;#x5206;&amp;#xFF0C;&amp;#x9762;&amp;#x8BD5;&amp;#x65F6;&amp;#x5FC5;&amp;#x5B9A;&amp;#x4F1A;&amp;">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2019/09/17/迭代器需要知道的事儿/20190916231339.jpg">
-<meta property="og:image" content="http://yoursite.com/2019/09/17/迭代器需要知道的事儿/image-20190917000811622.png">
-<meta property="og:updated_time" content="2019-09-21T14:42:39.001Z">
+<meta property="og:image" content="http://yoursite.com/2019/09/17/迭代器需要知道的事儿/images/%E8%BF%AD%E4%BB%A3%E5%99%A8%E9%9C%80%E8%A6%81%E7%9F%A5%E9%81%93%E7%9A%84%E4%BA%8B%E5%84%BF/image-20191025212858141.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/17/迭代器需要知道的事儿/images/%E8%BF%AD%E4%BB%A3%E5%99%A8%E9%9C%80%E8%A6%81%E7%9F%A5%E9%81%93%E7%9A%84%E4%BA%8B%E5%84%BF/image-20191025213548545.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/17/迭代器需要知道的事儿/%E8%BF%AD%E4%BB%A3%E5%99%A8%E9%9C%80%E8%A6%81%E7%9F%A5%E9%81%93%E7%9A%84%E4%BA%8B%E5%84%BF/20190916231339.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/09/17/迭代器需要知道的事儿/%E8%BF%AD%E4%BB%A3%E5%99%A8%E9%9C%80%E8%A6%81%E7%9F%A5%E9%81%93%E7%9A%84%E4%BA%8B%E5%84%BF/image-20190917000811622.png">
+<meta property="og:updated_time" content="2019-10-25T13:37:11.559Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java集合接口需要知道的事儿">
-<meta name="twitter:description" content="&amp;#x6458;&amp;#x8981; Java&amp;#x96C6;&amp;#x5408;&amp;#x6846;&amp;#x67B6;&amp;#x603B;&amp;#x89C8; Collection &amp;#x200B;    List &amp;#x200B;        ArrayList&amp;#x3001;Vector&amp;#x3001;LinkedList &amp;#x200B;    Set &amp;#x200B;        LinkedHashSe">
-<meta name="twitter:image" content="http://yoursite.com/2019/09/17/迭代器需要知道的事儿/20190916231339.jpg">
+<meta name="twitter:description" content="&amp;#x6458;&amp;#x8981;  &amp;#x200B;         &amp;#x524D;&amp;#x8A00;&amp;#x96C6;&amp;#x5408;&amp;#x662F;Java&amp;#x8BED;&amp;#x8A00;&amp;#x91CC;&amp;#x7684;&amp;#x91CD;&amp;#x8981;&amp;#x90E8;&amp;#x5206;&amp;#xFF0C;&amp;#x9762;&amp;#x8BD5;&amp;#x65F6;&amp;#x5FC5;&amp;#x5B9A;&amp;#x4F1A;&amp;">
+<meta name="twitter:image" content="http://yoursite.com/2019/09/17/迭代器需要知道的事儿/images/%E8%BF%AD%E4%BB%A3%E5%99%A8%E9%9C%80%E8%A6%81%E7%9F%A5%E9%81%93%E7%9A%84%E4%BA%8B%E5%84%BF/image-20191025212858141.png">
 
 
 
@@ -355,51 +357,8 @@
       
 
       
-        <h2 id="&#x6458;&#x8981;"><a href="#&#x6458;&#x8981;" class="headerlink" title="&#x6458;&#x8981;"></a>&#x6458;&#x8981;</h2><ol>
-<li><p>Java&#x96C6;&#x5408;&#x6846;&#x67B6;&#x603B;&#x89C8;</p>
-<p>Collection</p>
-<p>&#x200B;    List</p>
-<p>&#x200B;        ArrayList&#x3001;Vector&#x3001;LinkedList</p>
-<p>&#x200B;    Set</p>
-<p>&#x200B;        LinkedHashSet&#x3001;TreeSet</p>
-<p>Map</p>
-<p>&#x200B;    HashTable&#x3001;HashMap&#x3001;TreeMap&#x3001;LinkedHashMap&#x3001;ConcurrentHashMap</p>
-</li>
-<li><p>Iterator&#x6E90;&#x7801;&#x5206;&#x6790;</p>
-<ul>
-<li><p>&#x5B9E;&#x73B0;Iterable&#x63A5;&#x53E3;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;foreach&#xFF0C;Iterable&#x63A5;&#x53E3;&#x4E3B;&#x8981;&#x63D0;&#x4F9B;&#x4E00;&#x4E2A;&#x8FD4;&#x56DE;Iterator&#x7684;&#x65B9;&#x6CD5;&#x3002;</p>
-</li>
-<li><p>Iterator&#x63D0;&#x4F9B;HasNext&#x3001;next&#x3001;remove&#x7B49;&#x904D;&#x5386;&#x5BB9;&#x5668;&#x65B9;&#x6CD5;&#xFF0C;&#x5176;&#x5B9E;&#x73B0;&#x7531;&#x5B50;&#x7C7B;(ArrayList&#x3001;AbstractList&#x7B49;)&#x5B9E;&#x73B0;&#x3002;</p>
-</li>
-<li><p>ListIterator&#x63A5;&#x53E3;&#x662F;Iterator&#x7684;&#x5B50;&#x63A5;&#x53E3;&#xFF0C;&#x5728;&#x539F;&#x6765;&#x8FED;&#x4EE3;&#x5668;&#x63A5;&#x53E3;&#x7684;&#x57FA;&#x7840;&#x4E0A;&#x53C8;&#x589E;&#x52A0;&#x4E86;&#x4E00;&#x4E9B;&#x65B0;&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x5141;&#x8BB8;&#x5411;&#x524D;&#x3001;&#x5411;&#x540E;&#x4E24;&#x4E2A;&#x65B9;&#x5411;&#x904D;&#x5386;</p>
-</li>
-</ul>
-</li>
-<li><p>foreach&#x548C;&#x8FED;&#x4EE3;&#x5668;</p>
-<p>foreach&#x662F;java&#x7684;&#x8BED;&#x6CD5;&#x7CD6;&#xFF0C;&#x5176;&#x5B9E;&#x73B0;&#x662F;&#x901A;&#x8FC7;Iterator&#x548C;wile&#x5B9E;&#x73B0;&#x7684;&#x3002;</p>
-</li>
-<li><p>for&#x5FAA;&#x73AF;&#x548C;foreach</p>
-<ul>
-<li><strong>&#x8FD9;&#x4E24;&#x4E2A;&#x90FD;&#x662F;&#x904D;&#x5386;&#x6570;&#x636E;&#x5BB9;&#x5668;&#x7684;&#x65B9;&#x5F0F;&#xFF0C;&#x4F46;&#x4E24;&#x8005;&#x6709;&#x6839;&#x672C;&#x6027;&#x7684;&#x5DEE;&#x522B;&#xFF1A;for&#x5FAA;&#x73AF;&#x662F;&#x901A;&#x8FC7;&#x5FAA;&#x73AF;&#x7684;&#x65B9;&#x5F0F;&#x53BB;&#x904D;&#x5386;&#x6570;&#x636E;&#xFF0C;&#x800C;foreach&#x662F;&#x901A;&#x8FC7;while&#x5FAA;&#x73AF;+&#x8FED;&#x4EE3;&#x5668;&#x7684;&#x65B9;&#x5F0F;&#x904D;&#x5386;&#x6570;&#x636E;&#x3002;</strong></li>
-<li>foreach&#x904D;&#x5386;&#x5BB9;&#x5668;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5982;&#x679C;&#x5BF9;&#x5BB9;&#x5668;&#x8FDB;&#x884C;&#x4E86;add/remove&#x64CD;&#x4F5C;&#xFF0C;&#x4F1A;&#x629B;&#x51FA;ConcurrentModificationException&#x5F02;&#x5E38;&#x3002;&#x4F46;&#x4E5F;&#x4E0D;&#x662F;&#x6240;&#x6709;&#x5BB9;&#x5668;&#xFF0C;<strong>Java&#x63D0;&#x4F9B;&#x7684;fail-safe(java.util.concurrent&#x5305;&#x4E0B;&#x7684;&#x5BB9;&#x5668;&#x90FD;&#x662F;fail-safe)&#x673A;&#x5236;&#x7684;&#x5BB9;&#x5668;&#x5C31;&#x53EF;&#x4EE5;&#x5728;&#x904D;&#x5386;&#x7684;&#x65F6;&#x5019;add/remove</strong>&#x3002;</li>
-</ul>
-</li>
-<li><p>ConcurrentModificationException&#x5F02;&#x5E38;&#x51FA;&#x73B0;&#x7684;&#x539F;&#x56E0;</p>
-<ul>
-<li><p><strong>&#x4E3A;&#x4EC0;&#x4E48;foreach&#x904D;&#x5386;ArrayList&#x7684;&#x65F6;&#x5019;&#xFF0C;remove&#x5143;&#x7D20;&#x4F1A;&#x629B;&#x51FA;&#x5F02;&#x5E38;&#xFF1F;</strong></p>
-<blockquote>
-<p>ArrayList&#x4E2D;&#x6709;&#x7C7B;&#x53D8;&#x91CF;modCount&#x8BB0;&#x5F55;&#x4E86;ArrayList&#x53D8;&#x5316;&#x7684;&#x6B21;&#x6570;&#xFF0C;&#x6BCF;&#x6B21;&#x5728;add/remove&#x7684;&#x65F6;&#x5019;&#x4F1A;&#x81EA;&#x589E;&#xFF0C;&#x5F53;&#x8C03;&#x7528;ArrayList.iterator()&#x65B9;&#x6CD5;&#x7684;&#x65F6;&#x5019;&#x4F1A;new&#x4E00;&#x4E2A;&#x5185;&#x90E8;&#x7C7B;Itr&#xFF0C;&#x5E76;&#x5728;&#x521D;&#x59CB;&#x5316;Itr&#x7684;&#x65F6;&#x5019;&#x8D4B;&#x503C;expectedModCount=modCount&#x3002;</p>
-<p>&#x5F53;ArrayList&#x518D;&#x8C03;&#x7528;add/remove&#x65B9;&#x6CD5;&#x7684;&#x65F6;&#x5019;modCount&#x4F1A;&#x518D;&#x6B21;&#x81EA;&#x589E;&#xFF0C;&#x4F46;expectedModCount&#x5E76;&#x4E0D;&#x4F1A;&#x968F;&#x4E4B;&#x6539;&#x53D8;&#x3002;&#x6700;&#x7EC8;&#x5728;&#x904D;&#x5386;&#x65F6;&#x8C03;&#x7528;Itr.next()&#x6821;&#x9A8C;modCount&#x662F;&#x5426;&#x7B49;&#x4E8E;expectedModCount&#x65F6;&#x629B;&#x51FA;&#x5F02;&#x5E38;&#x3002;</p>
-</blockquote>
-</li>
-<li><p><strong>&#x4E3A;&#x4EC0;&#x4E48;&#x7528;&#x8FED;&#x4EE3;&#x5668;&#x904D;&#x5386;&#x65F6;&#xFF0C;remove&#x5143;&#x7D20;&#x5C31;&#x4E0D;&#x4F1A;&#x629B;&#x51FA;&#x5F02;&#x5E38;&#xFF1F;</strong></p>
-<blockquote>
-<p>&#x8FED;&#x4EE3;&#x5668;&#x904D;&#x5386;&#x65F6;&#xFF0C;&#x8C03;&#x7528;Itr.remove()&#x65F6;&#x4F1A;&#x518D;&#x6B21;&#x4EE4;expectedModCount=modCount&#xFF0C;&#x6240;&#x4EE5;&#x5728;Itr.next()&#x5224;&#x65AD;&#x65F6;&#x4F1A;&#x901A;&#x8FC7;&#x6821;&#x9A8C;&#x3002;</p>
-</blockquote>
-</li>
-</ul>
-</li>
-</ol>
+        <h2 id="&#x6458;&#x8981;"><a href="#&#x6458;&#x8981;" class="headerlink" title="&#x6458;&#x8981;"></a>&#x6458;&#x8981;</h2><p><img src="/2019/09/17/&#x8FED;&#x4EE3;&#x5668;&#x9700;&#x8981;&#x77E5;&#x9053;&#x7684;&#x4E8B;&#x513F;/images/%E8%BF%AD%E4%BB%A3%E5%99%A8%E9%9C%80%E8%A6%81%E7%9F%A5%E9%81%93%E7%9A%84%E4%BA%8B%E5%84%BF/image-20191025212858141.png" alt="image-20191025212858141"></p>
+<p><img src="/2019/09/17/&#x8FED;&#x4EE3;&#x5668;&#x9700;&#x8981;&#x77E5;&#x9053;&#x7684;&#x4E8B;&#x513F;/images/%E8%BF%AD%E4%BB%A3%E5%99%A8%E9%9C%80%E8%A6%81%E7%9F%A5%E9%81%93%E7%9A%84%E4%BA%8B%E5%84%BF/image-20191025213548545.png" alt="image-20191025213548545"></p>
 <p>&#x200B;        </p>
 <h2 id="&#x524D;&#x8A00;"><a href="#&#x524D;&#x8A00;" class="headerlink" title="&#x524D;&#x8A00;"></a>&#x524D;&#x8A00;</h2><p>&#x96C6;&#x5408;&#x662F;Java&#x8BED;&#x8A00;&#x91CC;&#x7684;&#x91CD;&#x8981;&#x90E8;&#x5206;&#xFF0C;&#x9762;&#x8BD5;&#x65F6;&#x5FC5;&#x5B9A;&#x4F1A;&#x95EE;&#x7684;&#x95EE;&#x9898;&#xFF0C;&#x90FD;&#x77E5;&#x9053;&#x96C6;&#x5408;&#x4F1A;&#x95EE; ArrayList&#x3001;LinkedList&#x3001;HashMap&#x7B49;&#xFF0C;&#x4F46;&#x6709;&#x65F6;&#x770B;&#x7684;&#x535A;&#x5BA2;&#x592A;&#x8FC7;&#x7247;&#x6BB5;&#xFF0C;&#x6CA1;&#x6709;&#x5BF9;&#x6574;&#x4E2A;&#x96C6;&#x5408;&#x6846;&#x67B6;&#x6709;&#x8F83;&#x5B8C;&#x6574;&#x7684;&#x8BA4;&#x77E5;&#xFF0C;&#x672C;&#x6587;&#x662F;Java&#x96C6;&#x5408;&#x90E8;&#x5206;&#x7684;&#x524D;&#x5E8F;&#xFF0C;&#x5305;&#x542B;&#x4EE5;&#x4E0B;&#x51E0;&#x4E2A;&#x90E8;&#x5206;&#xFF1A;</p>
 <ol>
@@ -408,7 +367,7 @@
 <li>&#x5BF9;&#x63A5;&#x53E3;Collection&#x548C;Map&#x8FDB;&#x884C;&#x6E90;&#x7801;&#x5206;&#x6790;&#x3002;</li>
 </ol>
 <h2 id="Java&#x96C6;&#x5408;&#x6846;&#x67B6;&#x603B;&#x89C8;"><a href="#Java&#x96C6;&#x5408;&#x6846;&#x67B6;&#x603B;&#x89C8;" class="headerlink" title="Java&#x96C6;&#x5408;&#x6846;&#x67B6;&#x603B;&#x89C8;"></a>Java&#x96C6;&#x5408;&#x6846;&#x67B6;&#x603B;&#x89C8;</h2><p>&#x96C6;&#x5408;&#x6846;&#x67B6;&#x4E3B;&#x8981;3&#x4E2A;&#xFF1A;List&#x3001;Set&#x3001;Map&#xFF0C;&#x770B;&#x4E00;&#x4E0B;&#x7C7B;&#x56FE;&#xFF08;<strong>&#x56FE;&#x4E2D;&#x7EA2;&#x6846;&#x6846;&#x51FA;&#x7684;&#x662F;&#x5728;&#x9762;&#x8BD5;&#x4E2D;&#x6700;&#x591A;&#x95EE;&#x5230;&#x7684;&#x548C;&#x5E73;&#x65F6;&#x4F7F;&#x7528;&#x6700;&#x591A;&#x7684;&#x7C7B;</strong>&#xFF09;</p>
-<p><img src="/2019/09/17/&#x8FED;&#x4EE3;&#x5668;&#x9700;&#x8981;&#x77E5;&#x9053;&#x7684;&#x4E8B;&#x513F;/20190916231339.jpg" alt="Java&#x96C6;&#x5408;&#x6846;&#x67B6;&#x7C7B;&#x56FE;"></p>
+<p><img src="/2019/09/17/&#x8FED;&#x4EE3;&#x5668;&#x9700;&#x8981;&#x77E5;&#x9053;&#x7684;&#x4E8B;&#x513F;/%E8%BF%AD%E4%BB%A3%E5%99%A8%E9%9C%80%E8%A6%81%E7%9F%A5%E9%81%93%E7%9A%84%E4%BA%8B%E5%84%BF/20190916231339.jpg" alt="Java&#x96C6;&#x5408;&#x6846;&#x67B6;&#x7C7B;&#x56FE;"></p>
 <blockquote>
 <ol>
 <li>Collection&#x548C;Map&#x90FD;&#x662F;&#x5728;<code>java.util</code>&#x5305;&#x4E0B;&#x7684;&#xFF0C;&#x800C;ConcurrentHashMap&#x662F;&#x5728;&#x5E76;&#x53D1;&#x5305;<code>java.util.concurrent</code>&#x4E0B;&#x3002;</li>
@@ -417,7 +376,7 @@
 </blockquote>
 <h2 id="&#x63A5;&#x53E3;Iterator&#x6E90;&#x7801;&#x5206;&#x6790;"><a href="#&#x63A5;&#x53E3;Iterator&#x6E90;&#x7801;&#x5206;&#x6790;" class="headerlink" title="&#x63A5;&#x53E3;Iterator&#x6E90;&#x7801;&#x5206;&#x6790;"></a>&#x63A5;&#x53E3;Iterator&#x6E90;&#x7801;&#x5206;&#x6790;</h2><p>&#x6211;&#x4EEC;&#x77E5;&#x9053;&#x96C6;&#x5408;&#x662F;&#x7528;&#x6765;&#x5B58;&#x653E;&#x6570;&#x636E;&#x7684;&#x5BB9;&#x5668;&#xFF0C;&#x6211;&#x4EEC;&#x7ECF;&#x5E38;&#x4E5F;&#x9700;&#x8981;&#x53BB;&#x904D;&#x5386;&#x6574;&#x4E2A;&#x5BB9;&#x5668;&#xFF0C;&#x53BB;&#x83B7;&#x53D6;&#x6570;&#x636E;&#xFF0C;&#x64CD;&#x4F5C;&#x6570;&#x636E;&#xFF0C;&#x8FD9;&#x5C31;&#x6709;&#x4E86;&#x8FED;&#x4EE3;&#x5668;&#x7684;&#x610F;&#x4E49;&#x3002;</p>
 <p>Collection&#x63A5;&#x53E3;&#x662F;Iterable&#x7684;&#x5B50;&#x63A5;&#x53E3;&#xFF0C;Iterable&#x8FD9;&#x4E2A;&#x63A5;&#x53E3;&#x7684;&#x4F5C;&#x7528;&#x5728;&#x5176;&#x7C7B;&#x58F0;&#x660E;&#x4E2D;&#x4E5F;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x5B9E;&#x73B0;&#x4E86;&#x8FD9;&#x4E2A;&#x63A5;&#x53E3;&#x7684;&#x7C7B;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;for-each&#x7684;&#x5FAA;&#x73AF;&#x3002;</p>
-<p><img src="/2019/09/17/&#x8FED;&#x4EE3;&#x5668;&#x9700;&#x8981;&#x77E5;&#x9053;&#x7684;&#x4E8B;&#x513F;/image-20190917000811622.png" alt="image-20190917000811622"></p>
+<p><img src="/2019/09/17/&#x8FED;&#x4EE3;&#x5668;&#x9700;&#x8981;&#x77E5;&#x9053;&#x7684;&#x4E8B;&#x513F;/%E8%BF%AD%E4%BB%A3%E5%99%A8%E9%9C%80%E8%A6%81%E7%9F%A5%E9%81%93%E7%9A%84%E4%BA%8B%E5%84%BF/image-20190917000811622.png" alt="image-20190917000811622"></p>
 <p>&#x90A3;&#x4E48;&#x4E3A;&#x4EC0;&#x4E48;&#x5B9E;&#x73B0;&#x4E86;&#x8FD9;&#x4E2A;&#x63A5;&#x53E3;&#x5C31;&#x53EF;&#x4EE5;&#x904D;&#x5386;&#x4E86;&#x5462;&#xFF1F;</p>
 <p>&#x5176;&#x5B9E;&#x8FD9;&#x4E2A;&#x63A5;&#x53E3;&#x6700;&#x4E3B;&#x8981;&#x7684;&#x65B9;&#x6CD5;&#x662F;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;Iterator&#x63A5;&#x53E3;&#xFF0C;&#x5728;Iterator&#x63A5;&#x53E3;&#x4E2D;&#xFF0C;&#x4E3B;&#x8981;&#x65B9;&#x6CD5;&#x662F;&#x6211;&#x4EEC;&#x719F;&#x6089;&#x7684;hasNext() next() remove()&#x3002;</p>
 <blockquote>
