@@ -1,27 +1,375 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><title>迭代器 | mikasaco</title><meta name="description" content="迭代器"><meta name="keywords" content="集合,迭代器"><meta name="author" content="mikasa"><meta name="copyright" content="mikasa"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/favicon.ico"><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="canonical" href="http://yoursite.com/2019/09/17/迭代器需要知道的事儿/"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="迭代器"><meta name="twitter:description" content="迭代器"><meta name="twitter:image" content="http://yoursite.comimg/tag.jpg"><meta property="og:type" content="article"><meta property="og:title" content="迭代器"><meta property="og:url" content="http://yoursite.com/2019/09/17/迭代器需要知道的事儿/"><meta property="og:site_name" content="mikasaco"><meta property="og:description" content="迭代器"><meta property="og:image" content="http://yoursite.comimg/tag.jpg"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="prev" title="Map需要知道的事儿" href="http://yoursite.com/2019/10/08/Map需要知道的事儿/"><link rel="next" title="List需要知道的事儿" href="http://yoursite.com/2019/09/17/List需要知道的事儿/"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
-  root: '/',
-  algolia: undefined,
-  localSearch: undefined,
-  translate: {"defaultEncoding":2,"translateDelay":0,"cookieDomain":"https://xxx/","msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
-  highlight_copy: 'false',
-  highlight_lang: 'true',
-  highlight_shrink: 'false',
-  copy: {
-    success: '复制成功',
-    error: '复制错误',
-    noSupport: '浏览器不支持'
-  },
-  bookmark: {
-    title: '添加书签',
-    message_prev: '按',
-    message_next: '键将本页加入书签'
-  },
-  runtime_unit: '天',
-  copyright: undefined,
-  copy_copyright_js: false
+<!DOCTYPE html>
+
+
+
   
-}</script></head><body><canvas class="fireworks"></canvas><div id="header"> <div id="page-header"><span class="pull-left" id="blog_name"><a class="blog_title" id="site-name" href="/">mikasaco</a></span><i class="fa fa-bars fa-fw toggle-menu pull-right close" aria-hidden="true"></i><span class="pull-right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> Categories</span></a></div><script>document.body.addEventListener('touchstart', function(){ });</script></div></span><span class="pull-right" id="search_button"></span></div></div><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="lozad avatar_img" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/Photo/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'"></div><div class="mobile_post_data"><div class="mobile_data_item is_center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">5</div></a></div></div><div class="mobile_data_item is_center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">9</div></a></div></div><div class="mobile_data_item is_center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">7</div></a></div></div></div><hr><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> Categories</span></a></div><script>document.body.addEventListener('touchstart', function(){ });</script></div></div><div id="mobile-sidebar-toc"><div class="toc_mobile_headline">目录</div><ol class="toc_mobile_items"><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#摘要"><span class="toc_mobile_items-number">1.</span> <span class="toc_mobile_items-text">摘要</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#前言"><span class="toc_mobile_items-number">2.</span> <span class="toc_mobile_items-text">前言</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#Java集合框架总览"><span class="toc_mobile_items-number">3.</span> <span class="toc_mobile_items-text">Java集合框架总览</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#接口Iterator源码分析"><span class="toc_mobile_items-number">4.</span> <span class="toc_mobile_items-text">接口Iterator源码分析</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#ListItr"><span class="toc_mobile_items-number">4.1.</span> <span class="toc_mobile_items-text">ListItr</span></a></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#foreach和迭代器"><span class="toc_mobile_items-number">5.</span> <span class="toc_mobile_items-text">foreach和迭代器</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#for循环和foreach"><span class="toc_mobile_items-number">6.</span> <span class="toc_mobile_items-text">for循环和foreach</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#ConcurrentModificationException异常出现的原因"><span class="toc_mobile_items-number">6.1.</span> <span class="toc_mobile_items-text">ConcurrentModificationException异常出现的原因</span></a></li></ol></li></ol></div></div><div id="body-wrap"><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true">     </i><div class="auto_open" id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#摘要"><span class="toc-number">1.</span> <span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">2.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Java集合框架总览"><span class="toc-number">3.</span> <span class="toc-text">Java集合框架总览</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#接口Iterator源码分析"><span class="toc-number">4.</span> <span class="toc-text">接口Iterator源码分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ListItr"><span class="toc-number">4.1.</span> <span class="toc-text">ListItr</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#foreach和迭代器"><span class="toc-number">5.</span> <span class="toc-text">foreach和迭代器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#for循环和foreach"><span class="toc-number">6.</span> <span class="toc-text">for循环和foreach</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ConcurrentModificationException异常出现的原因"><span class="toc-number">6.1.</span> <span class="toc-text">ConcurrentModificationException异常出现的原因</span></a></li></ol></li></ol></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(../images/tags.jpg)"><div id="post-info"><div id="post-title"><div class="posttitle">迭代器</div></div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 发表于 2019-09-17<span class="post-meta__separator">|</span><i class="fa fa-history" aria-hidden="true"></i> 更新于 2019-10-27</time><span class="post-meta__separator mobile_hidden">|</span><span class="mobile_hidden"><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/集合/">集合</a><i class="fa fa-angle-right" aria-hidden="true"></i><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/集合/迭代器/">迭代器</a></span><div class="post-meta-wordcount"></div></div></div></div><div class="layout layout_post" id="content-inner">   <article id="post"><div class="article-container" id="post-content"><h2 id="&#x6458;&#x8981;"><a href="#&#x6458;&#x8981;" class="headerlink" title="&#x6458;&#x8981;"></a>&#x6458;&#x8981;</h2><p><img alt="image-20191025212858141" data-src="/2019/09/17/&#x8FED;&#x4EE3;&#x5668;&#x9700;&#x8981;&#x77E5;&#x9053;&#x7684;&#x4E8B;&#x513F;/image-20191025212858141.png" class="lozad"></p>
-<p><img alt="image-20191025213548545" data-src="/2019/09/17/&#x8FED;&#x4EE3;&#x5668;&#x9700;&#x8981;&#x77E5;&#x9053;&#x7684;&#x4E8B;&#x513F;/image-20191025213548545.png" class="lozad"></p>
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="集合,迭代器,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="&amp;#x6458;&amp;#x8981;  &amp;#x200B;         &amp;#x524D;&amp;#x8A00;&amp;#x96C6;&amp;#x5408;&amp;#x662F;Java&amp;#x8BED;&amp;#x8A00;&amp;#x91CC;&amp;#x7684;&amp;#x91CD;&amp;#x8981;&amp;#x90E8;&amp;#x5206;&amp;#xFF0C;&amp;#x9762;&amp;#x8BD5;&amp;#x65F6;&amp;#x5FC5;&amp;#x5B9A;&amp;#x4F1A;&amp;">
+<meta name="keywords" content="集合,迭代器">
+<meta property="og:type" content="article">
+<meta property="og:title" content="迭代器">
+<meta property="og:url" content="http://yoursite.com/2019/09/17/迭代器需要知道的事儿/index.html">
+<meta property="og:site_name" content="mikasaco">
+<meta property="og:description" content="&amp;#x6458;&amp;#x8981;  &amp;#x200B;         &amp;#x524D;&amp;#x8A00;&amp;#x96C6;&amp;#x5408;&amp;#x662F;Java&amp;#x8BED;&amp;#x8A00;&amp;#x91CC;&amp;#x7684;&amp;#x91CD;&amp;#x8981;&amp;#x90E8;&amp;#x5206;&amp;#xFF0C;&amp;#x9762;&amp;#x8BD5;&amp;#x65F6;&amp;#x5FC5;&amp;#x5B9A;&amp;#x4F1A;&amp;">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/2019/09/17/迭代器需要知道的事儿/image-20191025212858141.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/17/迭代器需要知道的事儿/image-20191025213548545.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/17/迭代器需要知道的事儿/20190916231339.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/09/17/迭代器需要知道的事儿/image-20190917000811622.png">
+<meta property="og:updated_time" content="2019-10-27T10:06:09.514Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="迭代器">
+<meta name="twitter:description" content="&amp;#x6458;&amp;#x8981;  &amp;#x200B;         &amp;#x524D;&amp;#x8A00;&amp;#x96C6;&amp;#x5408;&amp;#x662F;Java&amp;#x8BED;&amp;#x8A00;&amp;#x91CC;&amp;#x7684;&amp;#x91CD;&amp;#x8981;&amp;#x90E8;&amp;#x5206;&amp;#xFF0C;&amp;#x9762;&amp;#x8BD5;&amp;#x65F6;&amp;#x5FC5;&amp;#x5B9A;&amp;#x4F1A;&amp;">
+<meta name="twitter:image" content="http://yoursite.com/2019/09/17/迭代器需要知道的事儿/image-20191025212858141.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'mikasa'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/09/17/迭代器需要知道的事儿/">
+
+
+
+
+
+  <title>迭代器 | mikasaco</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">mikasaco</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/17/迭代器需要知道的事儿/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="mikasa">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="mikasaco">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">迭代器</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-09-17T21:51:06+08:00">
+                2019-09-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/集合/" itemprop="url" rel="index">
+                    <span itemprop="name">集合</span>
+                  </a>
+                </span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/集合/迭代器/" itemprop="url" rel="index">
+                    <span itemprop="name">迭代器</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="&#x6458;&#x8981;"><a href="#&#x6458;&#x8981;" class="headerlink" title="&#x6458;&#x8981;"></a>&#x6458;&#x8981;</h2><p><img src="/2019/09/17/&#x8FED;&#x4EE3;&#x5668;&#x9700;&#x8981;&#x77E5;&#x9053;&#x7684;&#x4E8B;&#x513F;/image-20191025212858141.png" alt="image-20191025212858141"></p>
+<p><img src="/2019/09/17/&#x8FED;&#x4EE3;&#x5668;&#x9700;&#x8981;&#x77E5;&#x9053;&#x7684;&#x4E8B;&#x513F;/image-20191025213548545.png" alt="image-20191025213548545"></p>
 <p>&#x200B;        </p>
 <h2 id="&#x524D;&#x8A00;"><a href="#&#x524D;&#x8A00;" class="headerlink" title="&#x524D;&#x8A00;"></a>&#x524D;&#x8A00;</h2><p>&#x96C6;&#x5408;&#x662F;Java&#x8BED;&#x8A00;&#x91CC;&#x7684;&#x91CD;&#x8981;&#x90E8;&#x5206;&#xFF0C;&#x9762;&#x8BD5;&#x65F6;&#x5FC5;&#x5B9A;&#x4F1A;&#x95EE;&#x7684;&#x95EE;&#x9898;&#xFF0C;&#x90FD;&#x77E5;&#x9053;&#x96C6;&#x5408;&#x4F1A;&#x95EE; ArrayList&#x3001;LinkedList&#x3001;HashMap&#x7B49;&#xFF0C;&#x4F46;&#x6709;&#x65F6;&#x770B;&#x7684;&#x535A;&#x5BA2;&#x592A;&#x8FC7;&#x7247;&#x6BB5;&#xFF0C;&#x6CA1;&#x6709;&#x5BF9;&#x6574;&#x4E2A;&#x96C6;&#x5408;&#x6846;&#x67B6;&#x6709;&#x8F83;&#x5B8C;&#x6574;&#x7684;&#x8BA4;&#x77E5;&#xFF0C;&#x672C;&#x6587;&#x662F;Java&#x96C6;&#x5408;&#x90E8;&#x5206;&#x7684;&#x524D;&#x5E8F;&#xFF0C;&#x5305;&#x542B;&#x4EE5;&#x4E0B;&#x51E0;&#x4E2A;&#x90E8;&#x5206;&#xFF1A;</p>
 <ol>
@@ -30,7 +378,7 @@
 <li>&#x5BF9;&#x63A5;&#x53E3;Collection&#x548C;Map&#x8FDB;&#x884C;&#x6E90;&#x7801;&#x5206;&#x6790;&#x3002;</li>
 </ol>
 <h2 id="Java&#x96C6;&#x5408;&#x6846;&#x67B6;&#x603B;&#x89C8;"><a href="#Java&#x96C6;&#x5408;&#x6846;&#x67B6;&#x603B;&#x89C8;" class="headerlink" title="Java&#x96C6;&#x5408;&#x6846;&#x67B6;&#x603B;&#x89C8;"></a>Java&#x96C6;&#x5408;&#x6846;&#x67B6;&#x603B;&#x89C8;</h2><p>&#x96C6;&#x5408;&#x6846;&#x67B6;&#x4E3B;&#x8981;3&#x4E2A;&#xFF1A;List&#x3001;Set&#x3001;Map&#xFF0C;&#x770B;&#x4E00;&#x4E0B;&#x7C7B;&#x56FE;&#xFF08;<strong>&#x56FE;&#x4E2D;&#x7EA2;&#x6846;&#x6846;&#x51FA;&#x7684;&#x662F;&#x5728;&#x9762;&#x8BD5;&#x4E2D;&#x6700;&#x591A;&#x95EE;&#x5230;&#x7684;&#x548C;&#x5E73;&#x65F6;&#x4F7F;&#x7528;&#x6700;&#x591A;&#x7684;&#x7C7B;</strong>&#xFF09;</p>
-<p><img alt="Java&#x96C6;&#x5408;&#x6846;&#x67B6;&#x7C7B;&#x56FE;" data-src="/2019/09/17/&#x8FED;&#x4EE3;&#x5668;&#x9700;&#x8981;&#x77E5;&#x9053;&#x7684;&#x4E8B;&#x513F;/20190916231339.jpg" class="lozad"></p>
+<p><img src="/2019/09/17/&#x8FED;&#x4EE3;&#x5668;&#x9700;&#x8981;&#x77E5;&#x9053;&#x7684;&#x4E8B;&#x513F;/20190916231339.jpg" alt="Java&#x96C6;&#x5408;&#x6846;&#x67B6;&#x7C7B;&#x56FE;"></p>
 <blockquote>
 <ol>
 <li>Collection&#x548C;Map&#x90FD;&#x662F;&#x5728;<code>java.util</code>&#x5305;&#x4E0B;&#x7684;&#xFF0C;&#x800C;ConcurrentHashMap&#x662F;&#x5728;&#x5E76;&#x53D1;&#x5305;<code>java.util.concurrent</code>&#x4E0B;&#x3002;</li>
@@ -39,7 +387,7 @@
 </blockquote>
 <h2 id="&#x63A5;&#x53E3;Iterator&#x6E90;&#x7801;&#x5206;&#x6790;"><a href="#&#x63A5;&#x53E3;Iterator&#x6E90;&#x7801;&#x5206;&#x6790;" class="headerlink" title="&#x63A5;&#x53E3;Iterator&#x6E90;&#x7801;&#x5206;&#x6790;"></a>&#x63A5;&#x53E3;Iterator&#x6E90;&#x7801;&#x5206;&#x6790;</h2><p>&#x6211;&#x4EEC;&#x77E5;&#x9053;&#x96C6;&#x5408;&#x662F;&#x7528;&#x6765;&#x5B58;&#x653E;&#x6570;&#x636E;&#x7684;&#x5BB9;&#x5668;&#xFF0C;&#x6211;&#x4EEC;&#x7ECF;&#x5E38;&#x4E5F;&#x9700;&#x8981;&#x53BB;&#x904D;&#x5386;&#x6574;&#x4E2A;&#x5BB9;&#x5668;&#xFF0C;&#x53BB;&#x83B7;&#x53D6;&#x6570;&#x636E;&#xFF0C;&#x64CD;&#x4F5C;&#x6570;&#x636E;&#xFF0C;&#x8FD9;&#x5C31;&#x6709;&#x4E86;&#x8FED;&#x4EE3;&#x5668;&#x7684;&#x610F;&#x4E49;&#x3002;</p>
 <p>Collection&#x63A5;&#x53E3;&#x662F;Iterable&#x7684;&#x5B50;&#x63A5;&#x53E3;&#xFF0C;Iterable&#x8FD9;&#x4E2A;&#x63A5;&#x53E3;&#x7684;&#x4F5C;&#x7528;&#x5728;&#x5176;&#x7C7B;&#x58F0;&#x660E;&#x4E2D;&#x4E5F;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x5B9E;&#x73B0;&#x4E86;&#x8FD9;&#x4E2A;&#x63A5;&#x53E3;&#x7684;&#x7C7B;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;for-each&#x7684;&#x5FAA;&#x73AF;&#x3002;</p>
-<p><img alt="image-20190917000811622" data-src="/2019/09/17/&#x8FED;&#x4EE3;&#x5668;&#x9700;&#x8981;&#x77E5;&#x9053;&#x7684;&#x4E8B;&#x513F;/image-20190917000811622.png" class="lozad"></p>
+<p><img src="/2019/09/17/&#x8FED;&#x4EE3;&#x5668;&#x9700;&#x8981;&#x77E5;&#x9053;&#x7684;&#x4E8B;&#x513F;/image-20190917000811622.png" alt="image-20190917000811622"></p>
 <p>&#x90A3;&#x4E48;&#x4E3A;&#x4EC0;&#x4E48;&#x5B9E;&#x73B0;&#x4E86;&#x8FD9;&#x4E2A;&#x63A5;&#x53E3;&#x5C31;&#x53EF;&#x4EE5;&#x904D;&#x5386;&#x4E86;&#x5462;&#xFF1F;</p>
 <p>&#x5176;&#x5B9E;&#x8FD9;&#x4E2A;&#x63A5;&#x53E3;&#x6700;&#x4E3B;&#x8981;&#x7684;&#x65B9;&#x6CD5;&#x662F;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;Iterator&#x63A5;&#x53E3;&#xFF0C;&#x5728;Iterator&#x63A5;&#x53E3;&#x4E2D;&#xFF0C;&#x4E3B;&#x8981;&#x65B9;&#x6CD5;&#x662F;&#x6211;&#x4EEC;&#x719F;&#x6089;&#x7684;hasNext() next() remove()&#x3002;</p>
 <blockquote>
@@ -133,11 +481,393 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">remove</span><span class="params">()</span> </span>{</span><br><span class="line">  <span class="keyword">if</span> (lastRet &lt; <span class="number">0</span>)</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException();</span><br><span class="line">  checkForComodification();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">try</span> {</span><br><span class="line">    ArrayList.<span class="keyword">this</span>.remove(lastRet);</span><br><span class="line">    cursor = lastRet;</span><br><span class="line">    lastRet = -<span class="number">1</span>;</span><br><span class="line">    expectedModCount = modCount;   <span class="comment">//LOOK AT ME&#xFF01;</span></span><br><span class="line">  } <span class="keyword">catch</span> (IndexOutOfBoundsException ex) {</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> ConcurrentModificationException();</span><br><span class="line">  }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
 
 <p><strong>&#x5728;&#x4EE3;&#x7801;&#x7B2C;10&#x884C;&#xFF0C;&#x4F1A;&#x5BF9;&#x518D;&#x6B21;expectedModCount&#x8D4B;&#x503C;&#x4E3A;modCount&#x3002;&#x6240;&#x4EE5;&#x4F7F;&#x7528;iterator.remove()&#x5E76;&#x4E0D;&#x4F1A;&#x629B;&#x51FA;ConcurrentModificationException&#x5F02;&#x5E38;</strong></p>
-</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">mikasa</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://yoursite.com/2019/09/17/迭代器需要知道的事儿/">http://yoursite.com/2019/09/17/迭代器需要知道的事儿/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://yoursite.com">mikasaco</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/集合/">集合    </a><a class="post-meta__tags" href="/tags/迭代器/">迭代器    </a></div><div class="post_share"></div></div><nav class="pagination_post" id="pagination"><div class="prev-post pull-left"><a href="/2019/10/08/Map需要知道的事儿/"><img class="prev_cover lozad" data-src="img/mikasa.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="label">上一篇</div><div class="prev_info"><span>Map需要知道的事儿</span></div></a></div><div class="next-post pull-right"><a href="/2019/09/17/List需要知道的事儿/"><img class="next_cover lozad" data-src="img/mikasa.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="label">下一篇</div><div class="next_info"><span>List需要知道的事儿</span></div></a></div></nav><div class="relatedPosts"><div class="relatedPosts_headline"><i class="fa fa-fw fa-thumbs-up" aria-hidden="true"></i><span> 相关推荐</span></div><div class="relatedPosts_list"><div class="relatedPosts_item"><a href="/2019/09/17/List需要知道的事儿/" title="List需要知道的事儿"><img class="relatedPosts_cover lozad" data-src="img/mikasa.jpg"><div class="relatedPosts_title">List需要知道的事儿</div></a></div></div><div class="clear_both"></div></div></div></div><footer style="background-image: url(../images/tags.jpg)"><div id="footer"><div class="copyright">&copy;2018 - 2019 By mikasa</div><div class="framework-info"><span>驱动 </span><a href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly"><span>Butterfly</span></a></div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><i class="fa fa-book" id="readmode" title="阅读模式"></i><i class="fa fa-plus" id="font_plus" title="放大字体"></i><i class="fa fa-minus" id="font_minus" title="缩小字体"></i><a class="translate_chn_to_cht" id="translateLink" href="javascript:translatePage();" title="简繁转换">繁</a><i class="nightshift fa fa-moon-o" id="nightshift" title="夜间模式"></i></div><div id="rightside-config-show"><div id="rightside_config" title="设置"><i class="fa fa-cog" aria-hidden="true"></i></div><a id="to_comment" href="#post-comment" title="直达评论"><i class="scroll_to_comment fa fa-comments">  </i></a><i class="fa fa-list-ul close" id="mobile-toc-button" title="目录" aria-hidden="true"></i><i class="fa fa-arrow-up" id="go-up" title="回到顶部" aria-hidden="true"></i></div></section><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="/js/third-party/fireworks.js"></script><script src="/js/nightshift.js"></script><script id="ribbon" src="/js/third-party/canvas-ribbon.js" size="150" alpha="0.6" zindex="-1" data-click="false"></script><script src="/js/activate-power-mode.js"></script><script>POWERMODE.colorful = true; // make power mode colorful
-POWERMODE.shake = true; // turn off shake
-document.body.addEventListener('input', POWERMODE);
-</script><script src="/js/tw_cn.js"></script><script>translateInitilization()
 
-</script><script src="https://cdn.jsdelivr.net/npm/instant.page@1.2.2/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js"></script><script>const observer = lozad(); // lazy loads elements with default selector as '.lozad'
-observer.observe();
-</script></body></html>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/集合/" rel="tag"># 集合</a>
+          
+            <a href="/tags/迭代器/" rel="tag"># 迭代器</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/17/List需要知道的事儿/" rel="next" title="List需要知道的事儿">
+                <i class="fa fa-chevron-left"></i> List需要知道的事儿
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/10/08/Map需要知道的事儿/" rel="prev" title="Map需要知道的事儿">
+                Map需要知道的事儿 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">mikasa</p>
+              <p class="site-description motion-element" itemprop="description">java成长笔记</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#摘要"><span class="nav-number">1.</span> <span class="nav-text">摘要</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">2.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java集合框架总览"><span class="nav-number">3.</span> <span class="nav-text">Java集合框架总览</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#接口Iterator源码分析"><span class="nav-number">4.</span> <span class="nav-text">接口Iterator源码分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ListItr"><span class="nav-number">4.1.</span> <span class="nav-text">ListItr</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#foreach和迭代器"><span class="nav-number">5.</span> <span class="nav-text">foreach和迭代器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#for循环和foreach"><span class="nav-number">6.</span> <span class="nav-text">for循环和foreach</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ConcurrentModificationException异常出现的原因"><span class="nav-number">6.1.</span> <span class="nav-text">ConcurrentModificationException异常出现的原因</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">mikasa</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
